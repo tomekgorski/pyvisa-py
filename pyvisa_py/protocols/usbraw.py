@@ -22,7 +22,7 @@ def find_raw_devices(
     def is_usbraw(dev):
         if custom_match and not custom_match(dev):
             return False
-        return bool(find_interfaces(dev, bInterfaceClass=0xFF, bInterfaceSubClass=0xFF))
+        return bool(find_interfaces(dev, bInterfaceClass=0xFF, bInterfaceSubClass=0x00))
 
     return find_devices(vendor, product, serial_number, is_usbraw, **kwargs)
 
