@@ -79,3 +79,21 @@ class USBRawDevice(USBRaw):
             received.extend(resp)
 
         return bytes(received)
+
+    def control_transfer(self, request_type_bitmap_field, request_id, request_value=0, index=0, data_or_wlength=None):
+        """Performs a USB control pipe transfer from the device.
+        :param request_type_bitmap_field: bmRequestType parameter of the setup stage of a USB control transfer.
+        :param request_id: bRequest parameter of the setup stage of a USB control transfer.
+        :param request_value: wValue parameter of the setup stage of a USB control transfer.
+        :param index: wIndex parameter of the setup stage of a USB control transfer.
+                      This is usually the index of the interface or endpoint.
+        :param data_or_wlength: wLength parameter of the setup stage of a USB control transfer.
+                       This value also specifies the size of the data buffer to receive the data from the
+                       optional data stage of the control transfer.
+        :return: - The data buffer that receives the data from the optional data stage of the control transfer
+                 - return value of the library call.
+        :rtype: - bytes
+                - :class:`pyvisa.constants.StatusCode`
+        """
+
+        return self.usb_dev.ctrl_transfer(request_type_bitmap_field, request_id, request_value, index, data_or_wlength)
